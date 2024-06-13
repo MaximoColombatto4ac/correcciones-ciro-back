@@ -8,15 +8,17 @@ export default {
   Tenistas: {
     Base: '/tenistas',
     Get: '', // GET
+    ById: '/:id',
     Add: '', // POST
     Update: '', // PATCH
-    Delete: '', // DELETE
+    Delete: '/:id', // DELETE
   },
   Partidos: {
     Base: '/partidos',
     Get: '', // GET
+    Byid: '/:id',
     Add: '', // POST
     Update: '', // PATCH
-    Delete: '', // DELETE
+    Delete: '/:id', // DELETE
   },
 } as const;

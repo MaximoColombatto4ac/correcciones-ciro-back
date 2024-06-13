@@ -3,6 +3,7 @@
  */
 
 import cookieParser from 'cookie-parser';
+import bodyParser from "body-parser"
 import morgan from 'morgan';
 import path from 'path';
 import helmet from 'helmet';
@@ -34,6 +35,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(EnvVars.CookieProps.Secret));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Show routes called in console during development
 if (EnvVars.NodeEnv === NodeEnvs.Dev.valueOf()) {

@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 // Esquema para los tenistas
 const TenistaSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true,
-        unique: true // Asegura que el id sea único
-    },
     nombre: {
         type: String,
         trim: true,
@@ -53,21 +48,16 @@ const SetSchema = new mongoose.Schema({
 
 // Esquema para los partidos
 const PartidoSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true,
-        unique: true // Asegura que el id sea único
-    },
     jugador1: {
-        type: TenistaSchema,
+        type: String,
         required: true
     },
     jugador2: {
-        type: TenistaSchema,
+        type: String,
         required: true
     },
     ganador: {
-        type: TenistaSchema,
+        type: String,
         required: true
     },
     sets: {

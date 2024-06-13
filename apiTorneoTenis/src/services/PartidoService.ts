@@ -9,7 +9,7 @@ function getAll(): Promise<Partido[]> {
   }
 }
 
-function getOne(id: number): Promise<Partido | undefined>{
+function getOne(id: string): Promise<Partido | undefined>{
   try{
     return PartidoRepo.getOne(id);
   } catch(err) {
@@ -33,7 +33,7 @@ async function updateOne(partido: Partido): Promise<boolean> {
   }
 }
 
-async function _delete(id: number): Promise<boolean> {
+async function _delete(id: string): Promise<boolean> {
   try{
     return PartidoRepo.delete(id);
   } catch(err) {

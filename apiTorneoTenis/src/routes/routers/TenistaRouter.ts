@@ -1,7 +1,7 @@
 import { NextFunction, Router } from 'express';
 
 import Paths from '../../constants/Paths';
-import { Tenista } from '@src/classes/dataClasses/Tenista';
+import { Tenista, isTenista } from '@src/classes/dataClasses/Tenista';
 import TenistaRoutes from '../TenistaRoutes';
 import { IReq } from '../types/types';
 import { IRes } from '../types/express/misc';
@@ -10,30 +10,6 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 
 const tenistaRouter = Router();
 
-function checkGetType(req: IReq, res: any, next: NextFunction) {
-  if (req.query.id) {
-    (req as any).routeHandler = 'getOne';
-  } else {
-    (req as any).routeHandler = 'getAll';
-  }
-  next();
-}
-
-function callGetFunc(req: IReq, res: IRes){
-  if ((req as any).routeHandler === 'getOne') {
-    return TenistaRoutes.getOne(req, res);
-  } else {
-    return TenistaRoutes.getAll(req, res);
-  }
-}
-
-function validateId(req: IReq, res: IRes, next: NextFunction){
-    if (req.query.id) {
-      next()
-    } else {
-      return res.status(HttpStatusCodes.BAD_REQUEST).json({ error: errors.BADDELETEREQUEST("Missing id")}); 
-    }
-}
 
 function validateTenista(req: IReq<Tenista>, res: IRes, next: NextFunction){
   if (!req.body || typeof req.body !== 'object'){
@@ -42,7 +18,7 @@ function validateTenista(req: IReq<Tenista>, res: IRes, next: NextFunction){
 
   const tenista = req.body
 
-  if (Tenista.isTenista(tenista)){
+  if (isTenista(tenista)){
     next()
     return
   }
@@ -52,8 +28,12 @@ function validateTenista(req: IReq<Tenista>, res: IRes, next: NextFunction){
 
 tenistaRouter.get(
   Paths.Tenistas.Get,
-  checkGetType,
-  callGetFunc,
+  TenistaRoutes.getAll
+);
+
+tenistaRouter.get(
+  Paths.Tenistas.ById,
+  TenistaRoutes.getOne  
 );
 
 tenistaRouter.post(
@@ -70,7 +50,6 @@ tenistaRouter.patch(
 
 tenistaRouter.delete(
   Paths.Tenistas.Delete,
-  validateId,
   TenistaRoutes.delete,
 );
 

@@ -10,7 +10,7 @@ function getAll(): Promise<Tenista[]> {
   }
 }
 
-async function getOne(id: number): Promise<Tenista | undefined> {
+async function getOne(id: string): Promise<Tenista | undefined> {
   try {
     const persist = await TenistaRepo.persists(id);
     if (persist) {
@@ -41,7 +41,7 @@ async function updateOne(tenista: Tenista): Promise<boolean> {
   }
 }
 
-async function _delete(id: number): Promise<boolean> {
+async function _delete(id: string): Promise<boolean> {
   try{
     return TenistaRepo.delete(id);
   }

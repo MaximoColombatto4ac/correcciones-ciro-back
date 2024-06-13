@@ -14,8 +14,8 @@ async function getAll(_: IReq, res: IRes) {
   }
 }
 
-async function getOne(req: IReq, res: IRes){
-  const id = +(req.query as any).id;
+async function getOne(req: IReq<string>, res: IRes){
+  const id = req.params.id;
   const tenista = await TenistaService.getOne(id);
   return res.status(HttpStatusCodes.OK).json(tenista);
  
@@ -33,7 +33,7 @@ async function update(req: IReq<Tenista>, res: IRes) {
   try{
     const updateStatus = await TenistaService.updateOne(tenista);
     if (!updateStatus){
-      return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({error: errors.COULDNTFINDIDERROR(tenista.id.toString())})
+      return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({error: "error"})
     }
     return res.status(HttpStatusCodes.OK).end();
   } catch(err) {
@@ -42,8 +42,7 @@ async function update(req: IReq<Tenista>, res: IRes) {
 }
 
 async function delete_(req: IReq, res: IRes) {
-  const id = +(req.query as any).id;
-
+  const id = req.params.id;
   try{
     const deleteStatus = await TenistaService.delete(id);
     if (!deleteStatus){

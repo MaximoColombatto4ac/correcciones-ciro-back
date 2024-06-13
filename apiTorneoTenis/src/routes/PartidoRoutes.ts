@@ -8,7 +8,7 @@ import errors from '@src/constants/Errors'
 
 function verifyTenistas(res: IRes, partido: Partido){
   try{
-    if (!TenistaRepo.persists(partido.jugador1.id) || !TenistaRepo.persists(partido.jugador2.id)){
+    if (!TenistaRepo.persists(partido.jugador1) || !TenistaRepo.persists(partido.jugador2)){
       return res.status(HttpStatusCodes.BAD_REQUEST).json({ error: errors.BADPARTIDOOBJECT()}); 
     }
   } catch(err) {
@@ -26,7 +26,7 @@ async function getAll(_: IReq, res: IRes) {
 }
 
 async function getOne(req: IReq, res: IRes){
-  const id = +(req.query as any).id;
+  const id = req.params.id;
 
   try{
     const partido = await PartidoService.getOne(id);
@@ -60,7 +60,7 @@ async function update(req: IReq<Partido>, res: IRes) {
   
     const updateStatus = await PartidoService.updateOne(partido);
     if (!updateStatus){
-      return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({error: errors.COULDNTFINDIDERROR(partido.id.toString())})
+      return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({error: errors.COULDNTFINDIDERROR(partido._id)})
     }
     return res.status(HttpStatusCodes.OK).end();
   } catch(err) {
@@ -69,7 +69,7 @@ async function update(req: IReq<Partido>, res: IRes) {
 }
 
 async function delete_(req: IReq, res: IRes) {
-  const id = +(req.query as any).id;
+  const id = req.params.id;
 
   try{
     const deleteStatus = await PartidoService.delete(id);
