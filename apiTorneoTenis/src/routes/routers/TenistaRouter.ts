@@ -11,7 +11,7 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 const tenistaRouter = Router();
 
 
-function validateTenista(req: IReq<Tenista>, res: IRes, next: NextFunction){
+function validateTenista(req: IReq<{tenista: Tenista}>, res: IRes, next: NextFunction){
   if (!req.body || typeof req.body !== 'object'){
     return res.status(HttpStatusCodes.BAD_REQUEST).json({ error: errors.BADBODY("Missing object tenista")}); 
   }

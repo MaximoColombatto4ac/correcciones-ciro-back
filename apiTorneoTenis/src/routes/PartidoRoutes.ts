@@ -43,12 +43,11 @@ async function add(req: IReq<Partido>, res: IRes) {
   const partido = req.body;
 
   try{
-    verifyTenistas(res, partido);
   
     await PartidoService.addOne(partido);
     return res.status(HttpStatusCodes.CREATED).end();
   } catch(err) {
-    return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({error: errors.MISSINGDBERROR()})
+    return res.json({error: err})
   }
 }
 

@@ -21,14 +21,16 @@ async function getOne(req: IReq<string>, res: IRes){
  
 }
 
-async function add(req: IReq<Tenista>, res: IRes) {
-  const tenista = req.body;
+async function add(req: IReq<{tenista: Tenista}>, res: IRes) {
+  const tenista = req.body.tenista;
+  console.log(tenista);
+  
   await TenistaService.addOne(tenista);
   return res.status(HttpStatusCodes.CREATED).end();
 }
 
-async function update(req: IReq<Tenista>, res: IRes) {
-  const tenista = req.body;
+async function update(req: IReq<{tenista :Tenista}>, res: IRes) {
+  const {tenista} = req.body;
 
   try{
     const updateStatus = await TenistaService.updateOne(tenista);

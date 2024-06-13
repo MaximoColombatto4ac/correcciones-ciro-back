@@ -30,9 +30,14 @@ async function getAll(): Promise<Partido[]> {
 
 async function add(partido: Partido): Promise<boolean | Partido> {
   try {
-    const newPartido = new PartidoModel(partido);
-    const savedPartido = await newPartido.save();
-    return savedPartido.toObject() as Partido;
+    const newPartido = new PartidoModel({
+      jugador1: partido.jugador1,
+      jugador2: partido.jugador2,
+      ganador: partido.ganador,
+      sets: partido.sets,
+    });
+    await newPartido.save();
+    return true;
   } catch (err) {
     throw err;
   }

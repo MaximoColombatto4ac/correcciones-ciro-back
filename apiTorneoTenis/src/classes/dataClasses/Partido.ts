@@ -1,8 +1,8 @@
 import { SetTenis } from "../other/SetTenis";
 import { Tenista, isTenista } from "./Tenista";
 
-export interface Partido {
-    _id: string;
+export interface Partido { // cambiamos a interface
+    _id: string;// ids a string porque en mongo se manejan con objectId
     jugador1: string;
     jugador2: string;
     ganador: string;

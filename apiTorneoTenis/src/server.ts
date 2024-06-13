@@ -21,7 +21,7 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { NodeEnvs } from '@src/constants/misc';
 import { RouteError } from '@src/classes/other/classes';
 
-import { db } from './db';
+import { db } from './db'; // lo importamos
 
 
 // **** Variables **** //

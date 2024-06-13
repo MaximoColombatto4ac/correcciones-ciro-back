@@ -57,6 +57,8 @@ async function getAll(): Promise<Tenista[]> {
 
 async function add(tenista: Tenista): Promise<boolean> {
   try {
+    console.log(tenista);
+    
     const newTenista = new TenistaModel({
       nombre: tenista.nombre,
       peso: tenista.peso,
@@ -67,6 +69,7 @@ async function add(tenista: Tenista): Promise<boolean> {
       titulos: tenista.titulos
     });
     console.log(newTenista);
+    
     await newTenista.save();
     return true;
   } catch (err) {

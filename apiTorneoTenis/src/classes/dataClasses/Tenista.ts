@@ -1,13 +1,13 @@
 
-export interface Tenista  {
-  _id: string;
+export interface Tenista  {// cambiamos a interface
+  _id: string;// ids a string porque en mongo se manejan con objectId
   nombre: string;
   peso: number; // KG
   altura: number; // M
   edad: number;
   perfilATP: string;
   pais: string;
-  titulos: number;
+  titulos: number;// cambiamos los titulos a numeros por simplicidad
 }
 export function isTenista(tenista: any): boolean {
   return (
